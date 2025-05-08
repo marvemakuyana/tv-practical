@@ -1,0 +1,56 @@
+services:
+  nginx:
+    image: nginx
+    restart: always
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - fibertime-net
+
+  fibertime-fe:
+    build:
+      context: ./fibertime_fe
+      dockerfile: ./Dockerfile.dev
+    volumes:
+      - ./fibertime_fe:/app:ro
+      - ./fibertime_fe/package-lock.json:/app/package-lock.json
+      - fe-next:/app/.next
+      - fe-modules:/app/node_modules
+    networks:
+      - fibertime-net
+
+  fibertime-be:
+    build:
+      context: ./fibertime_be
+      dockerfile: ./Dockerfile.dev
+    volumes:
+      - ./fibertime_be:/app
+      - be-modules:/app/node_modules
+      - ./fibertime_be/.env:/app/.env
+    ports:
+      - "3000:3000"
+    networks:
+      - fibertime-net
+
+  fibertime-db:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=fibertime
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - fibertime-db:/var/lib/postgresql/data/pgdata
+    networks:
+      - fibertime-net
+
+networks:
+  fibertime-net:
+volumes:
+  fibertime-db:
+  fe-modules:
+  fe-next:
+  be-modules:
