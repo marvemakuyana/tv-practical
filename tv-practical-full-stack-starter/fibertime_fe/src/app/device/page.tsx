@@ -116,7 +116,7 @@ const DevicePage = () => {
               >
                 On your phone go to{" "}
                 <Link
-                  href="https://fibertime.tv"
+                  href="https://fibertime.vercel.app/mobile/login"
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
@@ -125,7 +125,7 @@ const DevicePage = () => {
                     textDecoration: "none",
                   }}
                 >
-                  fibertime.tv
+                  https://fibertime.vercel.app/mobile/login
                 </Link>{" "}
                 and enter this code
               </p>

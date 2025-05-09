@@ -1,14 +1,13 @@
-import React from "react";
-import Link from "next/link";
+"use client";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
-export default function App() {
-  return (
-    <div>
-      <h1>Welcome to Fibertime</h1>
-      <nav>
-        <Link href="/device">Device Page</Link>
-        <Link href="/mobile/login">Mobile Page</Link>
-      </nav>
-    </div>
-  );
+export default function HomePage() {
+  const router = useRouter();
+
+  useEffect(() => {
+    router.push("/device");
+  }, [router]);
+
+  return <div>Loading...</div>;
 }
